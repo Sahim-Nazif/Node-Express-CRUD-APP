@@ -17,9 +17,13 @@ const userRoutes=require('./app/routes/Routes')
 
 dotenv.config();
 
-
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.set('views', './app/views');
+app.set('view engine', 'ejs');
+
+
+
 if (process.env.NODE_ENV==='development') {
     app.use(morgan('dev'))
     console.log('the app is in development phase')
@@ -44,7 +48,10 @@ mongoose
 app.use(express.static('public/css'));
 
 app.use('/user',userRoutes)
+app.get('/', (req,res)=>{
 
+    res.render('home')
+})
 
 app.listen(process.env.PORT , ()=>{
 

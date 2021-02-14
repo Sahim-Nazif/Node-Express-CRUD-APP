@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+<body>
+    <h1 class="text-danger">Covid-19 Food Support for families</h1>
+        <div class="topsection">
+            <div class=" mt-5 loginBox">
+                <form action="/confirmPage" method="POST">
+                    <div>
+                        <label class="form-label">First Name</label>
+                        <input type="text" placeholder="First Name" class="form-control " name="firstName"  required>
+                    </div>
+                    <div>
+                        <label class="form-label">Last Name</label>
+                        <input type="text" placeholder="Last Name" class="form-control " name="lastName" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Address</label>
+                        <input type="text" placeholder="Address" class="form-control " name="address" required>
+                    </div>
+                    <div class="form-label">
+
+                        <select name='city' path="province" class="custom-select">
+                            <option selected>Please choose Your City</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Scarborough">Scarborough</option>
+                            <option value="Markham">Markham</option>
+                            <option value="Etobicoke">Etobicoke</option>
+                            <option value="Ajax">Ajax</option>
+                            <option value=">Mississauga">Mississauga</option>
+                        </select>
+
+                        <div>
+                            <div>
+                                <label class="form-label">Province</label>
+                                <input type="text" placeholder="Ontario" class="form-control " readonly>
+                            </div>
+                            <div class="form-label">
+
+                                <select name='employment' path="Employment" class="custom-select ">
+                                    <option selected>Employement Status</option>
+                                    <option value="Employed">Employed</option>
+                                    <option value="Unemployed">Unemployed</option>
+                                </select>
+                            </div>
+                            <div  class="form-label">
+                            <p>Please select your gender:</p>
+                            <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Female</label>
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other">Other</label>
+                        </div>
+                            <p>Please select your marital status:</p>
+                            <input type="radio" id="married" name="maritalStatus" value="married">
+                            <label for="married">Married</label>
+                            <input type="radio" id="single" name="maritalStatus" value="single">
+                            <label for="single">Single</label>
+                            <div>
+                                <label class="form-label">Number of family members</label>
+                                <input type="number" placeholder="Number of family member" class="form-control "
+                                    name="numberOfFamilyMembers" max="20" min="0">
+                            </div>
+                            <div>
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" placeholder="Email Address" class="form-control "
+                                    id="exampleInputEmail1" name="email"  required>
+                            </div>
+                            <div>
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" placeholder="Phone Number" class="form-control " name="phoneNumber"
+                                    required>
+                            </div>
+
+
+                            <button  type="submit" class="btn btn-secondary" >Submit</button>
+                </form>
+            </div>
+        </div>
+</body>
+<%- include('./partials/footer.ejs') %>
+</html>
