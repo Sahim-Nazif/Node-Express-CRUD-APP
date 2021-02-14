@@ -116,3 +116,16 @@ h1 {
     color:white;
     text-align: center
 }
+ .topsection a{
+    text-decoration: none;
+    color:white;
+    
+}
+.message{
+    width:30%;
+    margin-left:35%;
+
+}
+.container button{
+    margin-top: 30px;
+}

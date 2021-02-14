@@ -6,6 +6,8 @@ const morgan=require('morgan')
 const compress=require('compression')
 const bodyParser=require('body-parser')
 const userRoutes=require('./app/routes/Routes')
+const flash=require('connect-flash')
+const session=require('express-session')
 
 
 
@@ -44,14 +46,26 @@ mongoose
         })
         .then(()=> console.log('Mongo-DB Connected...'))
         .catch(err => console.log(err));
+
+
+app.use(session({
+    secret:'secret',
+    resave:true,
+    saveUninitialized:true
+}))
 //static file access point
 app.use(express.static('public/css'));
+app.use(flash())
+app.use((req, res, next)=>{
 
-app.use('/user',userRoutes)
-app.get('/', (req,res)=>{
-
-    res.render('home')
+    res.locals.success_msg=req.flash('success_msg')
+    res.locals.error_msg=req.flash('error_msg')
+    res.locals.error=req.flash('error')
+    next()
+    
 })
+app.use('/',userRoutes)
+
 
 app.listen(process.env.PORT , ()=>{
 

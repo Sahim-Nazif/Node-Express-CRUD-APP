@@ -42,15 +42,27 @@ const register_user = async (req, res) => {
 
 const user_login= async(req, res)=>{
 
+
     try {
+    
         const {email, password}= req.body
 
         if (!email || !password) {
-            return res.status(200).json({message:'Required filed missing'})
+
+               //return res.render('home',{message:'Required fields missing'} )
+            // errors.push({msg:'Required fields missing'})
+            req.flash('error_msg', 'Required fields are missing !')
+            res.redirect('/')
+          
+            //return res.status(200).json({message:'Required filed missing'})
+           
         }
         const user= await User.findOne({email})
         if (!user){
-            return res.status(200).json({message:'User not found. Do you want to register instead?'})
+            //return res.status(200).json({message:'User not found. Do you want to register instead?'})
+            req.flash('error_msg', 'User not found. Do you want to register instead?')
+            //return res.render('home', {message:'User not found. Do you want to register instead?'} )
+            res.redirect('/')
         }
         if (user && await bcrypt.compare(password,user.password)) {
              const userResponse={
@@ -59,9 +71,13 @@ const user_login= async(req, res)=>{
                  firstName:user.firstName,
                  lastName:user.lastName
              }
-            res.json(userResponse)
+            
+             req.flash('success_msg', 'Welcome to your profile page')
+            res.render('profile', {userResponse})
+          
         } else{
-            return res.status(200).json({message:'Email or Password does not match'})
+            req.flash('error_msg','Email or Password does not match')
+         
         }
     } catch (error) {
         throw Error(`Error while  Authenticating a User ${error}`)
