@@ -2,18 +2,19 @@
 <html lang="en">
 <%- include('./partials/header.ejs') %>
 <body>
-    <form method="POST" action="/submit">
+    <form method="POST" action="/update/<%- userResponse._id %>" >
         <div class="container">
     
             <h3>You Can Update or Delete Your Profile</h3>
+            <input type="text" class="form-control"   value="<%= userResponse._id %>" hidden >
             <label>First Name</label>
-            <input type="text" class="form-control" name="firstName"  value="<%= userResponse.firstName %>" >
+            <input type="text" class="form-control" name="firstName"  value="<%= userResponse.firstName %>"  >
             <label>Last Name</label>
-            <input type="text" class="form-control" name="lastName"  value="<%=  userResponse.lastName %>" >
+            <input type="text" class="form-control" name="lastName"  value="<%= userResponse.lastName %>" >
             <label>Email Address</label>
-            <input type="text" class="form-control" name="email"  value="<%=  userResponse.email %>" >
+            <input type="text" class="form-control" name="email"  value="<%= userResponse.email %>" readonly >
             <button type="submit" class="btn btn-success" >Update</button>
-            <button type="submit" class="btn btn-danger" >Delete</button>
+            <a class='btn btn-danger' href="/delete/<%= userResponse._id %>" >Delete</a>
         </div>
     </form>
     </body>

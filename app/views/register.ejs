@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+<body>
+    <form method="POST" action="/register" >
+        <div class="container">
+            <%- include('./partials/messages.ejs') %>
+            <h3>Signup to get access</h3>
+             <label>First Name</label>
+            <input type="text" class="form-control" name="firstName" required  >
+            <label>Last Name</label>
+            <input type="text" class="form-control" name="lastName" required  >
+            <label>Email Address</label>
+            <input type="text" class="form-control" name="email" required >
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" required >
+            <label>confirmPassword</label>
+            <input type="password" class="form-control" name="confirmPassword"  required >
+            <button type="submit" class="btn btn-success" >Sign up</button>
+           
+          </div>
+          <div class="backToLogin">
+          <a  href="/">Have an Account ? Login</a>
+        </div>
+    </form>
+    </body>
+    
+    <%- include('./partials/footer.ejs') %>
+</html>
