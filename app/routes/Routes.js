@@ -4,6 +4,7 @@ const {register_user, user_login,update_user,profile_update_success,delete_user
 }=require('../controllers/userController')
 
 
+
 router.get('/', (req,res)=>{
 
     res.render('home')
