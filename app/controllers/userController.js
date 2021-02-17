@@ -98,9 +98,15 @@ const user_login= async(req, res)=>{
                  firstName:user.firstName,
                  lastName:user.lastName
              }
-           
-           
-            res.render('profile', {userResponse})
+             const token=jwt.sign({_id:userResponse._id}, process.env.JWT_SECRET)
+             // persist the token as 't' in cookie with expirty
+             res.cookie('t', token, {expire: new Date() + 9999})
+         
+             //return response with user and token to front-end client
+             const {_id, firstName, lastName, email,}=userResponse
+         
+             return res.render('profile',{token, userResponse:{_id, firstName,lastName, email}})
+            //res.render('profile', {userResponse})
           
         } 
         else{
@@ -119,6 +125,7 @@ const delete_user=(req, res)=>{
         .then((result)=>{
             req.flash('success_msg','You deleted your account successfuly')
             res.redirect('/');
+           
            
         })
         .catch(err=>{
@@ -151,13 +158,53 @@ const update_user=async(req, res)=>{
 })
 }
 
+const isAuth=(req, res, next)=>{
 
+    try {
+        const user=req.profile && req. auth && req.profile._id== req.auth._id
+        if (!user){
+         
+           req.flash('error_msg', 'Access denied')
+        
+        }
+      
+    } catch (error) {
+        res.status(400).json({message:error})
+    }
+   
+   // res.json(user)
+   next()
+    
+}
 
+// const isAuth=(req, res, next)=>{
+
+//     const bearerToken=req.header('user')
+
+//     if (typeof bearerToken!== undefined) {
+//         req.token = bearerToken;
+//         next();
+//     } else{
+//         req.flash('error_msg','You are not allowed')
+//     }
+
+// }
+    
+
+//user logout
+const user_signout=(req, res)=>{
+
+    res.clearCookie('t','connect.sid')
+    res.redirect('/')
+    
+}
 
 module.exports = {
     register_user,
     user_login,
     update_user,
     profile_update_success,
-    delete_user
+    delete_user,
+    isAuth,
+    user_signout
 }
